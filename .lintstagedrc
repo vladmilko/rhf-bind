@@ -1,0 +1,7 @@
+{
+  "src/**/*.{js,ts,tsx}": [
+    "prettier --list-different",
+    "eslint --max-warnings 0",
+    "jest --bail --findRelatedTests --passWithNoTests -c ./configs/jest/jest.config.ts"
+  ]
+}
