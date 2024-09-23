@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "$": ["./src/*"]
+      "$*": ["./src/*"]
     },
     "strict": true,
     "noImplicitAny": true,
@@ -14,10 +14,12 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "declaration": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "types": ["@testing-library/jest-dom", "@testing-library/dom", "@testing-library/react"]
   },
-  "include": ["./src", "./configs/jest/setupTests.ts"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
