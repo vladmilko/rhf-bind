@@ -1,5 +1,5 @@
 {
-  "name": "@rhf-rapid/compose-controller",
+  "name": "@rhf-bind/compose-controller",
   "version": "0.0.1",
   "description": "Library for binding components to the logic of useController from react-hook-form library.",
   "keywords": [
