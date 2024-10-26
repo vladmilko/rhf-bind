@@ -29,12 +29,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install modules
         run: npm ci
-      - name: build production project
+      - name: run ci checking scripts
         run: npm run ci-checks --ws
         if: always()
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-        if: always()
+      # - name: Setup Pages
+      #   uses: actions/configure-pages@v2
+      #   if: always()
       # - name: Upload artifact
       #   uses: actions/upload-pages-artifact@v1
       #   if: always()
