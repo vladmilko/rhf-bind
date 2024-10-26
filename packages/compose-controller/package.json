@@ -10,9 +10,6 @@
   ],
   "author": "<vladmilko27@gmail.com>",
   "license": "ISC",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/vladmilko"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/vladmilko/rhf-rapid"
