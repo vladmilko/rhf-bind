@@ -1,7 +1,3 @@
 {
-  "**/*.{js,ts,tsx}": [
-    "prettier --list-different",
-    "eslint --max-warnings 0",
-    "jest --bail --findRelatedTests --passWithNoTests -c packages/compose-controller/jest.config.ts"
-  ]
+  "**/*.{js,ts,tsx}": ["prettier --list-different", "eslint --max-warnings 0", "npm run test --ws"]
 }
