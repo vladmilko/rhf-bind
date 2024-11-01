@@ -1,0 +1,61 @@
+{
+  "name": "@rhf-bind/form-with-dispatch",
+  "version": "0.0.1",
+  "description": "This library provides a set of utilities, types, and components to simplify form handling in React applications, extending the react-hook-form library with custom dispatching mechanisms and additional contextual support.",
+  "keywords": [
+    "react",
+    "hooks",
+    "form",
+    "react-hook-form"
+  ],
+  "author": "<vladmilko27@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vladmilko/rhf-bind"
+  },
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "umd:main": "./lib/index.umd.js",
+  "unpkg": "./lib/index.umd.js",
+  "types": "./lib/index.d.ts",
+  "source": "src/index.ts",
+  "files": [
+    "lib"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "lint": "eslint -c ../../.eslintrc.json './src/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint -c ../../.eslintrc.json './src/**/*.{js,ts,tsx}' -- --fix",
+    "prettier:fix": "prettier --config ../../.prettierrc --write \"./src/**/*.{js,ts,tsx,css}\"",
+    "tsc": "tsc",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "ci-checks": "npm run prettier:fix && npm run lint && npm run tsc && npm run test && npm run build",
+    "prepublishOnly": "npm run ci-checks"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.7",
+    "vite-plugin-dts": "^4.2.1",
+    "vite-tsconfig-paths": "^5.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17 || ^18 || ^19",
+    "react-hook-form": "^7.53.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
