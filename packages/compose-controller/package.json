@@ -37,7 +37,7 @@
     "lint:fix": "eslint -c ../../.eslintrc.json './src/**/*.{js,ts,tsx}' -- --fix",
     "prettier:fix": "prettier --config ../../.prettierrc --write \"./src/**/*.{js,ts,tsx,css}\"",
     "tsc": "tsc",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "ci-checks": "npm run prettier:fix && npm run lint && npm run tsc && npm run test && npm run build",
