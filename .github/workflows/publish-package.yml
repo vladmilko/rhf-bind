@@ -11,7 +11,7 @@ on:
           - compose-controller
           - form-with-dispatch
       version:
-        description: 'choose a strategy for updating the package'
+        description: 'Choose a strategy for updating the package'
         required: true
         type: choice
         options:
@@ -31,9 +31,10 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+      - run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_PUBLISH}}
       - run: npm ci
-      - run: npm version ${{ github.event.inputs.version }} -w '@rhf-bind/${{ github.event.inputs.package }}'
-      - run: npm publish --access public -w '@rhf-bind/${{ github.event.inputs.package }}'
+      - run: npm version ${{github.event.inputs.version}} -w @rhf-bind/${{github.event.inputs.package}}
+      - run: npm publish --access public -w @rhf-bind/${{github.event.inputs.package}}
       - run: git push --no-verify
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
