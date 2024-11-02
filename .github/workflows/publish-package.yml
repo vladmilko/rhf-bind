@@ -31,8 +31,8 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+      - run: npm ci
       - run: npm version ${{ github.event.inputs.version }} -w @rhf-bind/${{ github.event.inputs.package }}
-      - run: npm ci -w @rhf-bind/${{ github.event.inputs.package }}
       - run: npm publish --access public -w @rhf-bind/${{ github.event.inputs.package }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
