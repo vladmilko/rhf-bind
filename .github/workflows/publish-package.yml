@@ -34,5 +34,6 @@ jobs:
       - run: npm ci
       - run: npm version ${{ github.event.inputs.version }} -w @rhf-bind/${{ github.event.inputs.package }}
       - run: npm publish --access public -w @rhf-bind/${{ github.event.inputs.package }}
+      - run: git push --no-verify
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
