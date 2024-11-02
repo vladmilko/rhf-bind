@@ -1,16 +1,19 @@
 import { Config } from '@jest/types';
+import { resolve } from 'path';
+type CreateJestConfigProps = Pick<Config.InitialOptions, 'moduleNameMapper'> & {
+  pathToModule: string;
+};
 
-type CreateJestConfigProps = Pick<Config.InitialOptions, 'moduleNameMapper'>;
-
-export const createJestConfig = ({ moduleNameMapper }: CreateJestConfigProps): Config.InitialOptions => ({
+export const createJestConfig = ({ moduleNameMapper, pathToModule }: CreateJestConfigProps): Config.InitialOptions => ({
+  rootDir: resolve(__dirname, '../../'),
   testEnvironment: 'jsdom',
   clearMocks: true,
-  rootDir: '../../',
   moduleDirectories: ['node_modules'],
   coveragePathIgnorePatterns: ['\\\\node_modules\\\\', '__fixtures__', 'consts', 'consts.ts'],
+  coverageDirectory: resolve(pathToModule, 'coverage'),
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
-  testMatch: ['<rootDir>packages/**/src/**/__tests__/*(*.)@(spec).[tj]s?(x)'],
-  modulePaths: ['<rootDir>packages/**/src'],
+  testMatch: [`${pathToModule}/src/**/__tests__/*(*.)@(spec).[tj]s?(x)`],
+  modulePaths: [`${pathToModule}/src`],
   setupFilesAfterEnv: ['<rootDir>/configs/jest/setupTests.ts'],
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
   transform: {

@@ -1,7 +1,7 @@
 {
-  "name": "@rhf-bind/compose-controller",
+  "name": "@rhf-bind/form-with-dispatch",
   "version": "0.0.1",
-  "description": "Library for binding components to the logic of useController from react-hook-form library.",
+  "description": "This library provides a set of utilities, types, and components to simplify form handling in React applications, extending the react-hook-form library with custom dispatching mechanisms and additional contextual support.",
   "keywords": [
     "react",
     "hooks",
@@ -50,9 +50,6 @@
     "vite": "^5.4.7",
     "vite-plugin-dts": "^4.2.1",
     "vite-tsconfig-paths": "^5.0.1"
-  },
-  "dependencies": {
-    "merge-refs": "1.3.0"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18 || ^19",
