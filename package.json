@@ -30,7 +30,8 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "publish:compose-controller": "npm publish --access public -w @rhf-bind/compose-controller"
+    "publish:compose-controller": "npm publish --access public -w @rhf-bind/compose-controller",
+    "publish:form-with-dispatch": "npm publish --access public -w @rhf-bind/form-with-dispatch"
   },
   "devDependencies": {
     "@swc/core": "^1.7.26",
