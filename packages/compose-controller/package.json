@@ -12,7 +12,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vladmilko/rhf-bind"
+    "url": "git+https://github.com/vladmilko/rhf-bind.git"
   },
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
