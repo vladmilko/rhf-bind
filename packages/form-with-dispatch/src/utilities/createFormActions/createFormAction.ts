@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import type { FieldValues } from 'react-hook-form';
 
-import { FormActionProps } from '../types';
-import { useFormDispatch } from '../useFormDispatch';
+import type { FormActionProps } from '$useFormDispatch';
+import { useFormDispatch } from '$useFormDispatch';
 
 /**
  * A helper function to create reusable form actions compatible with `react-hook-form`,

@@ -1,12 +1,12 @@
 import { act, renderHook } from '@testing-library/react';
 
 import { createRHFActionsFixture, TestFormValues } from '$__fixtures__';
+import type { FormActionProps } from '$useFormDispatch';
+import { useFormDispatch } from '$useFormDispatch';
 
-import type { FormActionProps } from '../../types';
-import { useFormDispatch } from '../../useFormDispatch';
 import { createFormAction } from '../createFormAction';
 
-jest.mock('../../useFormDispatch');
+jest.mock('$useFormDispatch');
 
 type ExtraArgsForm = {
   flag: boolean;
