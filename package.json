@@ -1,7 +1,7 @@
 {
   "name": "rhf-bind",
   "version": "0.0.1",
-  "description": "Library for convenient binding of components and manipulation of the logic of the react-hook-form library.",
+  "description": "Monorepo that enhances react-hook-form functionality through specialized packages.",
   "keywords": [
     "react",
     "hooks",
