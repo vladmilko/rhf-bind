@@ -273,3 +273,7 @@ const [useMyFormAction, myFormAction] = createFormAction<Props, FormState, Retur
   - A tuple:
     - `useActionHook` - A custom hook to dispatch the action bound to `formDispatch`.
     - `actionCreator` - The action itself, allowing for manual invocation if needed.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request to discuss improvements or bug fixes.
