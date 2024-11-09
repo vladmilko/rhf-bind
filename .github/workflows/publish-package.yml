@@ -22,6 +22,9 @@ on:
           - preminor
           - prepatch
 
+permissions:
+  contents: write
+
 jobs:
   publish-package:
     runs-on: ubuntu-latest
@@ -42,7 +45,7 @@ jobs:
         run: npm version ${{ github.event.inputs.version }} -w @rhf-bind/${{ github.event.inputs.package }}
       # - name: Tagging new version of ${{ github.event.inputs.package }}
         # run: git tag -a ${{ github.event.inputs.package }}-v${{ npm pkg get version -w @rhf-bind/${{ github.event.inputs.package }} | grep -Eo '\d+\.\d+\.\d+' -m1 }} -m 'Upgrade ${{ github.event.inputs.package }}'
-      - name: Publishing new version of ${{ github.event.inputs.package }}
-        run: npm run publish:${{ github.event.inputs.package }}
+      # - name: Publishing new version of ${{ github.event.inputs.package }}
+        # run: npm run publish:${{ github.event.inputs.package }}
       - name: Pushing new version to branch
         run: git commit -am 'Upgrade ${{ github.event.inputs.package }} version' && git push --no-verify
