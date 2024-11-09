@@ -31,8 +31,18 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_PUBLISH }}
-      - run: npm ci
-      - run: npm version ${{ github.event.inputs.version }} -w @rhf-bind/${{ github.event.inputs.package }}
-      - run: npm run publish:${{ github.event.inputs.package }}
-      - run: git add . && git commit -m 'Upgrade ${{ github.event.inputs.package }} version' && git push --no-verify
+      - name: Configuring git and npm
+        run: |
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_PUBLISH }}
+          git config --global user.name 'vladmilko'
+          git config --global user.email 'vladmilko27@gmail.com'
+      - name: Installing deps
+        run: npm ci
+      - name: Upgrading version of ${{ github.event.inputs.package }} 
+        run: npm version ${{ github.event.inputs.version }} -w @rhf-bind/${{ github.event.inputs.package }}
+      # - name: Tagging new version of ${{ github.event.inputs.package }}
+        # run: git tag -a ${{ github.event.inputs.package }}-v${{ npm pkg get version -w @rhf-bind/${{ github.event.inputs.package }} | grep -Eo '\d+\.\d+\.\d+' -m1 }} -m 'Upgrade ${{ github.event.inputs.package }}'
+      - name: Publishing new version of ${{ github.event.inputs.package }}
+        run: npm run publish:${{ github.event.inputs.package }}
+      - name: Pushing new version to branch
+        run: git commit -am 'Upgrade ${{ github.event.inputs.package }} version' && git push --no-verify
