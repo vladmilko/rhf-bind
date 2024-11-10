@@ -22,14 +22,13 @@ on:
           - preminor
           - prepatch
 
-permissions:
-  contents: write
-
 jobs:
   publish-package:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.ACTIONS_PUSH_SSH }}
       - uses: actions/setup-node@v4
         with:
           node-version: 20
