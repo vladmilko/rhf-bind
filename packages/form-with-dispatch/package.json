@@ -1,6 +1,6 @@
 {
   "name": "@rhf-bind/form-with-dispatch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This library provides a set of utilities, types, and components to simplify form handling in React applications, extending the react-hook-form library with custom dispatching mechanisms and additional contextual support.",
   "keywords": [
     "react",
