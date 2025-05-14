@@ -16,7 +16,7 @@ type WrappedMockComponentProps = WithComposeControllerComponentProps<TestFormSta
 
 describe('withComposeController HOC', () => {
   const MockComponent = jest.fn();
-  const WrappedMockComponent = withComposeController<MockComponentProps, TestFormState, 'testField'>(MockComponent);
+  const WrappedMockComponent = withComposeController<MockComponentProps, string>(MockComponent);
 
   type TypedUseComposeController = typeof useComposeController<TestFormState, 'testField'>;
   const mockUseComposeController = useComposeController as jest.MockedFn<TypedUseComposeController>;

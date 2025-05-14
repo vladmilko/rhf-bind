@@ -1,9 +1,9 @@
 import { type ComponentType, useMemo } from 'react';
-import type { FieldPath, FieldPathValue, FieldValues } from 'react-hook-form';
+import type { FieldPath, FieldValues, RegisterOptions } from 'react-hook-form';
 
 import { OverriddenRegisterOptions, useComposeController } from '$useComposeController';
 
-import { WithComposeControllerComponentProps } from './types';
+import { OmittedFieldProps, WithComposeControllerComponentProps } from './types';
 
 /**
  * Higher-Order Component (HOC) wraps a component to inject controlled
@@ -22,16 +22,11 @@ import { WithComposeControllerComponentProps } from './types';
  *
  * @returns WrappedComponent - A component that manages form state and field logic for `Component`.
  */
-export const withComposeController = <
-  ComponentProps,
-  FormValues extends FieldValues = FieldValues,
-  TName extends FieldPath<FormValues> = FieldPath<FormValues>,
-  FieldValue = FieldPathValue<FormValues, TName>,
->(
+export const withComposeController = <ComponentProps, FieldValue = unknown>(
   Component: ComponentType<ComponentProps>,
-  defaultRules?: OverriddenRegisterOptions<FieldValue, FormValues>,
+  defaultRules?: RegisterOptions,
 ) => {
-  const WrappedComponent = ({
+  const WrappedComponent = <FormValues extends FieldValues = FieldValues>({
     fieldName,
     defaultValue,
     rules,
@@ -42,13 +37,14 @@ export const withComposeController = <
     disabledController,
     fieldRef,
     ...otherProps
-  }: WithComposeControllerComponentProps<FormValues, TName, FieldValue>) => {
+  }: WithComposeControllerComponentProps<FormValues, FieldPath<FormValues>, FieldValue> &
+    OmittedFieldProps<ComponentProps>) => {
     // Merge default and custom validation rules, prioritizing `rules`.
     const resolvedRules = useMemo(() => ({ ...defaultRules, ...rules }), [rules]);
 
-    const controllerProps = useComposeController<FormValues, TName, FieldValue>({
+    const controllerProps = useComposeController<FormValues, FieldPath<FormValues>, FieldValue>({
       name: fieldName,
-      rules: resolvedRules,
+      rules: resolvedRules as OverriddenRegisterOptions<FieldValue, FormValues>,
       disabled: disabledController,
       defaultValue,
       onChange,

@@ -51,3 +51,10 @@ export type WithComposeControllerComponentProps<
   /** Optional property to disable controller functionality for the component. */
   disabledController?: boolean;
 };
+
+export type OverrideComposeControllerProps<
+  ComponentProps,
+  FormValues extends FieldValues = FieldValues,
+  FieldValue = unknown,
+> = WithComposeControllerComponentProps<FormValues, FieldPath<FormValues>, FieldValue> &
+  OmittedFieldProps<ComponentProps>;

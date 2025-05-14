@@ -9,7 +9,7 @@ export const useFormWithDispatch = <
   TContext = any,
   TTransformedValues extends FieldValues | undefined = undefined,
 >(
-  props: UseFormProps<FormValues, TContext>,
+  props?: UseFormProps<FormValues, TContext>,
   extraArgs?: ExtraArgs,
 ) => {
   const methods = useFormRhf<FormValues, TContext, TTransformedValues>(props);

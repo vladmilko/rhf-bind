@@ -22,7 +22,7 @@ export const createBuildConfig = ({ externalPackages, packageName, alias, rootDi
         formats: ['cjs', 'es', 'umd'],
       },
       rollupOptions: {
-        external: Array.from(Object.keys(externalPackages)),
+        external: Array.from([...Object.keys(externalPackages), 'react/jsx-runtime']),
       },
       sourcemap: true,
     },

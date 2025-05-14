@@ -1,2 +1,6 @@
-export type { ComposedComponentProps, WithComposeControllerComponentProps } from './types';
+export type {
+  ComposedComponentProps,
+  OverrideComposeControllerProps,
+  WithComposeControllerComponentProps,
+} from './types';
 export * from './withComposeController';
