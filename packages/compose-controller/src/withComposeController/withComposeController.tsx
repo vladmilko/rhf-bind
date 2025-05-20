@@ -1,5 +1,5 @@
 import { type ComponentType, useMemo } from 'react';
-import type { FieldPath, FieldValues, RegisterOptions } from 'react-hook-form';
+import type { FieldPath, FieldValues, RefCallBack, RegisterOptions } from 'react-hook-form';
 
 import { OverriddenRegisterOptions, useComposeController } from '$useComposeController';
 
@@ -13,16 +13,15 @@ import { OmittedFieldProps, WithComposeControllerComponentProps } from './types'
  * - `fieldState`: Provides field validation status and metadata.
  *
  * @template ComponentProps - Props of the component being wrapped.
- * @template FormValues - Structure of form values managed by `react-hook-form`. Defaults to `FieldValues`.
- * @template TName - Path to the specific field within `FormValues`. Defaults to `FieldPath<FormValues>`.
- * @template FieldValue - Type of the value at the specified field path. Defaults to `FieldPathValue<FormValues, TName>`.
+ * @template FieldValue - Type of the value at the specified field path. Defaults to `unknown`.
+ * @template FieldRef - Type of the field ref (defaults to `RefCallBack`).
  *
  * @param Component - React component to wrap with controlled form behavior.
  * @param defaultRules - Optional default validation rules for the form field.
  *
  * @returns WrappedComponent - A component that manages form state and field logic for `Component`.
  */
-export const withComposeController = <ComponentProps, FieldValue = unknown>(
+export const withComposeController = <ComponentProps, FieldValue = unknown, FieldRef = RefCallBack>(
   Component: ComponentType<ComponentProps>,
   defaultRules?: RegisterOptions,
 ) => {
@@ -37,12 +36,12 @@ export const withComposeController = <ComponentProps, FieldValue = unknown>(
     disabledController,
     fieldRef,
     ...otherProps
-  }: WithComposeControllerComponentProps<FormValues, FieldPath<FormValues>, FieldValue> &
+  }: WithComposeControllerComponentProps<FormValues, FieldPath<FormValues>, FieldValue, FieldRef> &
     OmittedFieldProps<ComponentProps>) => {
     // Merge default and custom validation rules, prioritizing `rules`.
     const resolvedRules = useMemo(() => ({ ...defaultRules, ...rules }), [rules]);
 
-    const controllerProps = useComposeController<FormValues, FieldPath<FormValues>, FieldValue>({
+    const controllerProps = useComposeController<FormValues, FieldPath<FormValues>, FieldValue, FieldRef>({
       name: fieldName,
       rules: resolvedRules as OverriddenRegisterOptions<FieldValue, FormValues>,
       disabled: disabledController,

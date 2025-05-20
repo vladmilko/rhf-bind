@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import mergeRefs from 'merge-refs';
-import { FieldPath, FieldPathValue, FieldValues, useController } from 'react-hook-form';
+import { FieldPath, FieldPathValue, FieldValues, PathValue, RefCallBack, useController } from 'react-hook-form';
 
 import { ComposeField, UseComposeControllerProps } from './types';
 
@@ -15,6 +15,7 @@ import { ComposeField, UseComposeControllerProps } from './types';
  * @template FormValues - Type of form values (extends `FieldValues` from `react-hook-form`).
  * @template TName - Type for the field name within the form values (extends `FieldPath<FormValues>`).
  * @template FieldValue - Type of the field's value (defaults to `FieldPathValue<FormValues, TName>`).
+ * @template FieldRef - Type of the field ref (defaults to `RefCallBack`).
  *
  * @param {UseComposeControllerProps<FormValues, TName, FieldValue>} props - Hook props.
  * @param {(value: FieldValue) => void} [props.onChange] - Optional external `onChange` handler.
@@ -29,16 +30,18 @@ export const useComposeController = <
   FormValues extends FieldValues = FieldValues,
   TName extends FieldPath<FormValues> = FieldPath<FormValues>,
   FieldValue = FieldPathValue<FormValues, TName>,
+  FieldRef = RefCallBack,
 >({
   onChange: propsOnChange,
   shouldChangeValue,
   fieldRef,
+  defaultValue,
   ...props
-}: UseComposeControllerProps<FormValues, TName, FieldValue>) => {
+}: UseComposeControllerProps<FormValues, TName, FieldValue, FieldRef>) => {
   const {
     field: { onBlur, onChange, ref, value },
     fieldState,
-  } = useController<FormValues, TName>(props);
+  } = useController<FormValues, TName>({ ...props, defaultValue: defaultValue as PathValue<FormValues, TName> });
 
   /**
    * Handler for processing `onChange` events.
@@ -79,11 +82,11 @@ export const useComposeController = <
    * - `ref`: Combines `useController` ref with an optional external `fieldRef`.
    * - `value`: Current field value.
    */
-  const composedField: ComposeField<FieldValue> = useMemo(
+  const composedField: ComposeField<FieldValue, FieldRef> = useMemo(
     () => ({
       onChange: onChangeHandler,
       onBlur,
-      ref: mergeRefs<Element | null>(ref, fieldRef),
+      ref: mergeRefs<FieldRef | null>(ref, fieldRef),
       value,
     }),
     [onChangeHandler, onBlur, ref, fieldRef, value],

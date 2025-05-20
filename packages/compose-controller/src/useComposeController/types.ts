@@ -4,6 +4,7 @@ import {
   FieldPathValue,
   FieldValues,
   Noop,
+  RefCallBack,
   RegisterOptions,
   UseControllerProps,
   Validate,
@@ -43,18 +44,23 @@ export type OverriddenRegisterOptions<FieldValue, FormValues extends FieldValues
  * @template FormValues - Type of form values object (extends `FieldValues` from `react-hook-form`).
  * @template TName - Type of the field name (extends `FieldPath` for the `FormValues`).
  * @template FieldValue - Type of the field's value.
+ * @template FieldRef - Type of the field ref (defaults to `RefCallBack`).
  */
 export type UseComposeControllerProps<
   FormValues extends FieldValues = FieldValues,
   TName extends FieldPath<FormValues> = FieldPath<FormValues>,
   FieldValue = FieldPathValue<FormValues, TName>,
-> = UseControllerProps<FormValues, TName> & {
+  FieldRef = RefCallBack,
+> = Omit<UseControllerProps<FormValues, TName>, 'defaultValue' | 'rules'> & {
   /**
    * Validation rules and options for the field.
    *
    * This uses the `OverriddenRegisterOptions` type, allowing custom `validate` and `value` properties.
    */
   rules?: OverriddenRegisterOptions<FieldValue, FormValues>;
+
+  /** The initial value for the input field */
+  defaultValue?: FieldValue;
 
   /**
    * User-defined handler for change events on the field.
@@ -75,7 +81,7 @@ export type UseComposeControllerProps<
   shouldChangeValue?: (newValue: FieldValue, prevValue: FieldValue) => boolean | Promise<boolean>;
 
   /** Reference to the DOM element associated with the field. */
-  fieldRef?: ReactRef<Element | null> | null | undefined;
+  fieldRef?: ReactRef<FieldRef | null> | null | undefined;
 };
 
 /**
@@ -91,8 +97,9 @@ type ReactRef<T> = RefCallback<T> | MutableRefObject<T>;
  * This object is useful for integrating custom components with `react-hook-form`.
  *
  * @template FieldValue - Type of the field's value.
+ * @template FieldRef - Type of the field ref (defaults to `RefCallBack`).
  */
-export interface ComposeField<FieldValue> {
+export interface ComposeField<FieldValue, FieldRef = RefCallBack> {
   /**
    * Handler for change events on the field.
    *
@@ -104,7 +111,7 @@ export interface ComposeField<FieldValue> {
   onBlur: Noop;
 
   /** Reference to the DOM element associated with the field. */
-  ref: Ref<Element | null>;
+  ref: Ref<FieldRef | null>;
 
   /** Current value of the field. */
   value: FieldValue;
