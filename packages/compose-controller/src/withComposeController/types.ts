@@ -1,4 +1,4 @@
-import { ControllerFieldState, FieldPath, FieldPathValue, FieldValues } from 'react-hook-form';
+import { ControllerFieldState, FieldPath, FieldPathValue, FieldValues, RefCallBack } from 'react-hook-form';
 
 import { ComposeField, UseComposeControllerProps } from '$useComposeController';
 
@@ -6,9 +6,9 @@ import { ComposeField, UseComposeControllerProps } from '$useComposeController';
  * Interface representing properties injected into components wrapped by `withComposeController`.
  * Includes form `field` data and `fieldState` (validation status and metadata).
  */
-interface ControlProps<FieldValue> {
+interface ControlProps<FieldValue, FieldRef = RefCallBack> {
   /** Provides the field data for controlled components. */
-  field: ComposeField<FieldValue>;
+  field: ComposeField<FieldValue, FieldRef>;
 
   /** Contains validation status and other field-specific metadata. */
   fieldState: ControllerFieldState;
@@ -19,7 +19,10 @@ interface ControlProps<FieldValue> {
  * Combines `ControlProps` with the original component's props, omitting form-specific props
  * (`onChange`, `value`, `defaultValue`) to prevent conflicts.
  */
-export type ComposedComponentProps<FieldValue, ComponentProps> = ControlProps<FieldValue> &
+export type ComposedComponentProps<FieldValue, ComponentProps, FieldRef = RefCallBack> = ControlProps<
+  FieldValue,
+  FieldRef
+> &
   Omit<ComponentProps, 'onChange' | 'value' | 'defaultValue'>;
 
 /**
@@ -39,12 +42,14 @@ export type OmittedFieldProps<ComponentProps> = Omit<
  * @template FormValues - Type representing the structure of form values handled by `react-hook-form`.
  * @template TName - Field path for a specific form field within `FormValues`.
  * @template FieldValue - Type representing the value of the field specified by `TName`.
+ * @template FieldRef - Type of the field ref (defaults to `RefCallBack`).
  */
 export type WithComposeControllerComponentProps<
   FormValues extends FieldValues = FieldValues,
   TName extends FieldPath<FormValues> = FieldPath<FormValues>,
   FieldValue = FieldPathValue<FormValues, TName>,
-> = Omit<UseComposeControllerProps<FormValues, TName, FieldValue>, 'name' | 'disabled'> & {
+  FieldRef = RefCallBack,
+> = Omit<UseComposeControllerProps<FormValues, TName, FieldValue, FieldRef>, 'name' | 'disabled'> & {
   /** Path name for the field within `FormValues`. */
   fieldName: TName;
 
@@ -56,5 +61,6 @@ export type OverrideComposeControllerProps<
   ComponentProps,
   FormValues extends FieldValues = FieldValues,
   FieldValue = unknown,
-> = WithComposeControllerComponentProps<FormValues, FieldPath<FormValues>, FieldValue> &
+  FieldRef = RefCallBack,
+> = WithComposeControllerComponentProps<FormValues, FieldPath<FormValues>, FieldValue, FieldRef> &
   OmittedFieldProps<ComponentProps>;
