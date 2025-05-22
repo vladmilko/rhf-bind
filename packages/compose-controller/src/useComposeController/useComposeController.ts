@@ -82,7 +82,7 @@ export const useComposeController = <
    * - `ref`: Combines `useController` ref with an optional external `fieldRef`.
    * - `value`: Current field value.
    */
-  const composedField: ComposeField<FieldValue, FieldRef> = useMemo(
+  const composedField = useMemo(
     () => ({
       onChange: onChangeHandler,
       onBlur,
@@ -90,7 +90,7 @@ export const useComposeController = <
       value,
     }),
     [onChangeHandler, onBlur, ref, fieldRef, value],
-  );
+  ) as ComposeField<FieldValue, FieldRef>;
 
   return { field: composedField, fieldState };
 };

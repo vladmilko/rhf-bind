@@ -1,4 +1,4 @@
-import { MutableRefObject, Ref, RefCallback } from 'react';
+import { MutableRefObject, RefCallback } from 'react';
 import {
   FieldPath,
   FieldPathValue,
@@ -85,13 +85,6 @@ export type UseComposeControllerProps<
 };
 
 /**
- * Type alias for a React ref, which can be either a callback ref or a `MutableRefObject`.
- *
- * @template T - The type of the referenced value.
- */
-type ReactRef<T> = RefCallback<T> | MutableRefObject<T>;
-
-/**
  * Interface representing the field object returned by the `useComposeController` hook.
  *
  * This object is useful for integrating custom components with `react-hook-form`.
@@ -111,8 +104,15 @@ export interface ComposeField<FieldValue, FieldRef = RefCallBack> {
   onBlur: Noop;
 
   /** Reference to the DOM element associated with the field. */
-  ref: Ref<FieldRef | null>;
+  ref: ReactRef<FieldRef | null>;
 
   /** Current value of the field. */
   value: FieldValue;
 }
+
+/**
+ * Type alias for a React ref, which can be either a callback ref or a `MutableRefObject`.
+ *
+ * @template T - The type of the referenced value.
+ */
+type ReactRef<T> = RefCallback<T> | MutableRefObject<T>;
