@@ -53,7 +53,7 @@ export const withComposeController = <ComponentProps, FieldValue = unknown, Fiel
       fieldRef,
     });
 
-    return <Component {...(otherProps as ComponentProps)} {...controllerProps} />;
+    return <Component {...(otherProps as ComponentProps)} {...controllerProps} rules={resolvedRules} />;
   };
 
   WrappedComponent.displayName = Component.displayName || Component.name || 'Component';
