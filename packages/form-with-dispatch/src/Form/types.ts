@@ -11,16 +11,12 @@ export interface FormProps<
   FormValues extends FieldValues,
   ExtraArgs extends Record<string, unknown> = Record<string, unknown>,
   TContext = any,
-  TTransformedValues extends FieldValues | undefined = undefined,
-> extends UseFormProps<FormValues, TContext> {
+  TTransformedValues extends FieldValues = FormValues,
+> extends UseFormProps<FormValues, TContext, TTransformedValues> {
   /**
    * Function invoked upon successful form submission.
    */
-  onSubmit?: TTransformedValues extends undefined
-    ? SubmitHandler<FormValues>
-    : TTransformedValues extends FieldValues
-      ? SubmitHandler<TTransformedValues>
-      : never;
+  onSubmit?: SubmitHandler<TTransformedValues>;
 
   /**
    * Function invoked when form validation fails, providing detailed error information.

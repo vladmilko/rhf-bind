@@ -22,7 +22,7 @@ export const Form = <
   FormValues extends FieldValues = FieldValues,
   ExtraArgs extends Record<string, unknown> = Record<string, unknown>,
   TContext = any,
-  TTransformedValues extends FieldValues | undefined = undefined,
+  TTransformedValues extends FieldValues = FormValues,
 >({
   children,
   formElementProps,
