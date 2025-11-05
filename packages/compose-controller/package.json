@@ -1,6 +1,6 @@
 {
   "name": "@rhf-bind/compose-controller",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Library for binding components to the logic of useController from react-hook-form library.",
   "keywords": [
     "react",
