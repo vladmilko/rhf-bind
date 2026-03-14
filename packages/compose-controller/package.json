@@ -33,8 +33,8 @@
   },
   "scripts": {
     "build": "vite build",
-    "lint": "eslint -c ../../.eslintrc.json './src/**/*.{js,ts,tsx}'",
-    "lint:fix": "eslint -c ../../.eslintrc.json './src/**/*.{js,ts,tsx}' -- --fix",
+    "lint": "eslint -c ../../.eslintrc.json \"./src/**/*.{js,ts,tsx}\"",
+    "lint:fix": "eslint -c ../../.eslintrc.json \"./src/**/*.{js,ts,tsx}\" -- --fix",
     "prettier:fix": "prettier --config ../../.prettierrc --write \"./src/**/*.{js,ts,tsx,css}\"",
     "tsc": "tsc",
     "test": "jest --passWithNoTests",
@@ -47,7 +47,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "typescript": "^5.5.3",
-    "vite": "^5.4.7",
+    "vite": "^8.0.0",
     "vite-plugin-dts": "^4.2.1",
     "vite-tsconfig-paths": "^5.0.1"
   },
